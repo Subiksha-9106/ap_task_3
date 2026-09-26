@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PulseQuiz - Test Your Knowledge. Track Your Progress. Stay Curious.</title>
+  <meta name="description" content="PulseQuiz is an interactive web development quiz arena with real progress tracking, category challenges, and live API-powered jokes.">
+  <meta property="og:title" content="PulseQuiz - Test Your Knowledge. Track Your Progress. Stay Curious.">
+  <meta property="og:description" content="PulseQuiz is an interactive web development quiz arena with real progress tracking, category challenges, and live API-powered jokes.">
+  <meta property="og:type" content="website">
+
+  <!-- Application Stylesheet -->
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <!-- App Wrapper Layout -->
+  <div class="app-container" id="appContainer">
+
+    <!-- Permanent Sticky Top Navigation Bar -->
+    <header class="top-nav" id="topNav">
+      <div class="top-nav-inner">
+        <!-- PulseQuiz Brand -->
+        <a href="#home" class="brand" data-section="home" id="topNavBrand">
+          <div class="brand-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <div class="brand-name">Pulse<span>Quiz</span></div>
+          </div>
+        </a>
+
+        <!-- Main Navigation Links -->
+        <nav class="top-nav-menu" id="topNavMenu" aria-label="Main Navigation">
+          <button class="nav-link active" data-section="home" id="navHome">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span>Home</span>
+          </button>
+
+          <button class="nav-link" data-section="quiz" id="navQuiz">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            <span>Quiz</span>
+          </button>
+
+          <button class="nav-link" data-section="categories" id="navCategories">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            <span>Categories</span>
+          </button>
+
+          <button class="nav-link" data-section="joke" id="navJoke">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+              <line x1="9" y1="9" x2="9.01" y2="9"></line>
+              <line x1="15" y1="9" x2="15.01" y2="9"></line>
+            </svg>
+            <span>Live Joke</span>
+            <span class="nav-link-badge">API</span>
+          </button>
+
+          <button class="nav-link" data-section="progress" id="navProgress">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="20" x2="18" y2="10"></line>
+              <line x1="12" y1="20" x2="12" y2="4"></line>
+              <line x1="6" y1="20" x2="6" y2="14"></line>
+            </svg>
+            <span>Progress</span>
+          </button>
+
+          <button class="nav-link" data-section="about" id="navAbout">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            <span>About</span>
+          </button>
+        </nav>
+
+        <!-- Right Side: Theme Switcher -->
+        <div class="top-nav-actions">
+          <button class="theme-toggle-btn" id="themeToggleBtn" type="button" aria-label="Toggle Dark and Light Theme" title="Toggle Theme">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <span class="theme-label" id="themeLabel">Dark Mode</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+      <main class="main-content">
+
+        <!-- ============================================================
+             SECTION: HOME / DASHBOARD
+             ============================================================ -->
+        <section class="app-section active" id="home">
+          <!-- Hero Section -->
+          <div class="hero-card">
+            <div class="hero-content">
+              <div class="hero-badge">
+                <span class="hero-badge-dot"></span>
+                <span>WEB DEVELOPMENT QUIZ ARENA</span>
+              </div>
+              <h1 class="hero-title">Ready for your next challenge?</h1>
+              <p class="hero-description">
+                Sharpen your knowledge through quick interactive quizzes and discover something fun along the way.
+              </p>
+              <div class="hero-actions">
+                <button class="btn btn-primary btn-lg" id="heroStartQuizBtn" type="button">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                  </svg>
+                  <span>Start Quiz</span>
+                </button>
+                <button class="btn btn-secondary btn-lg" id="heroExploreCategoriesBtn" type="button">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
+                  </svg>
+                  <span>Explore Categories</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dashboard Statistics -->
+          <div class="stats-grid">
+            <div class="stat-card" id="cardQuestionsAnswered">
+              <div class="stat-header">
+                <span class="stat-title">Questions Answered</span>
+                <div class="stat-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                  </svg>
+                </div>
+              </div>
+              <div class="stat-value" id="statQuestionsAnswered">0</div>
+              <div class="stat-subtitle">All attempts tracked</div>
+            </div>
+
+            <div class="stat-card" id="cardCorrectAnswers">
+              <div class="stat-header">
+                <span class="stat-title">Correct Answers</span>
+                <div class="stat-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+              </div>
+              <div class="stat-value" id="statCorrectAnswers">0</div>
+              <div class="stat-subtitle">Verified solutions</div>
+            </div>
+
+            <div class="stat-card" id="cardBestScore">
+              <div class="stat-header">
+                <span class="stat-title">Best Score</span>
+                <div class="stat-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                  </svg>
+                </div>
+              </div>
+              <div class="stat-value" id="statBestScore">0%</div>
+              <div class="stat-subtitle">Highest recorded accuracy</div>
+            </div>
+
+            <div class="stat-card" id="cardQuizzesCompleted">
+              <div class="stat-header">
+                <span class="stat-title">Quizzes Completed</span>
+                <div class="stat-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                  </svg>
+                </div>
+              </div>
+              <div class="stat-value" id="statQuizzesCompleted">0</div>
+              <div class="stat-subtitle">Full rounds finished</div>
+            </div>
+          </div>
+
+          <!-- Continue Learning & Daily Challenge Action Cards -->
+          <div class="dashboard-actions-grid">
+            <!-- Continue Learning Card -->
+            <div class="action-card" id="continueCard">
+              <div>
+                <div class="action-card-header">
+                  <span class="action-card-tag">Recent Activity</span>
+                </div>
+                <h3 class="action-card-title" id="continueCardTitle">Continue Learning</h3>
+                <p class="action-card-desc" id="continueCardDesc">
+                  Start your first quiz to begin tracking your progress.
+                </p>
+                <div class="continue-progress-box" id="continueProgressBox" style="display: none;">
+                  <div class="continue-progress-meta" id="continueProgressMeta">0% completed</div>
+                  <div class="progress-track">
+                    <div class="progress-fill" id="continueProgressFill" style="width: 0%;"></div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <button class="btn btn-primary" id="continueBtn" type="button">
+                  <span>Start New Quiz</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Daily Challenge Card -->
+            <div class="action-card" id="dailyCard">
+              <div>
+                <div class="action-card-header">
+                  <span class="action-card-tag">Featured Challenge</span>
+                  <span class="badge-countdown">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    <span>30s Countdown</span>
+                  </span>
+                </div>
+                <h3 class="action-card-title">Daily Challenge</h3>
+                <p class="action-card-desc">
+                  5 mixed questions across web development topics.
+                </p>
+              </div>
+              <div>
+                <button class="btn btn-secondary" id="startDailyBtn" type="button">
+                  <span>Start Daily Challenge</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category Quick Preview -->
+          <div class="section-header">
+            <span class="section-tag">Explore Topics</span>
+            <h2 class="section-title">Browse Core Technologies</h2>
+            <p class="section-desc">Select any domain to test your comprehension with focused question sets.</p>
+          </div>
+
+          <div class="categories-grid">
+            <div class="category-card">
+              <div class="category-badge-meta">
+                <div class="category-icon-box">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="16 18 22 12 16 6"></polyline>
+                    <polyline points="8 6 2 12 8 18"></polyline>
+                  </svg>
+                </div>
+                <span class="category-badge-count">5 Questions</span>
+              </div>
+              <div>
+                <h3 class="category-card-title">HTML</h3>
+                <p class="category-card-desc">Structure and semantics</p>
+              </div>
+              <button class="btn btn-secondary btn-sm" data-start-category="html" type="button">
+                <span>Start Quiz</span>
+              </button>
+            </div>
+
+            <div class="category-card">
+              <div class="category-badge-meta">
+                <div class="category-icon-box">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                  </svg>
+                </div>
+                <span class="category-badge-count">5 Questions</span>
+              </div>
+              <div>
+                <h3 class="category-card-title">CSS</h3>
+                <p class="category-card-desc">Styling and responsive design</p>
+              </div>
+              <button class="btn btn-secondary btn-sm" data-start-category="css" type="button">
+                <span>Start Quiz</span>
+              </button>
+            </div>
+
+            <div class="category-card">
+              <div class="category-badge-meta">
+                <div class="category-icon-box">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                  </svg>
+                </div>
+                <span class="category-badge-count">5 Questions</span>
+              </div>
+              <div>
+                <h3 class="category-card-title">JavaScript</h3>
+                <p class="category-card-desc">Logic and interaction</p>
+              </div>
+              <button class="btn btn-secondary btn-sm" data-start-category="javascript" type="button">
+                <span>Start Quiz</span>
+              </button>
+            </div>
+
+            <div class="category-card">
+              <div class="category-badge-meta">
+                <div class="category-icon-box">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                  </svg>
+                </div>
+                <span class="category-badge-count">5 Questions</span>
+              </div>
+              <div>
+                <h3 class="category-card-title">Web Development</h3>
+                <p class="category-card-desc">Essential web concepts</p>
+              </div>
+              <button class="btn btn-secondary btn-sm" data-start-category="webdev" type="button">
+                <span>Start Quiz</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             SECTION: QUIZ INTERACTIVE ENGINE & START SCREEN
+             ============================================================ -->
+        <section class="app-section" id="quiz">
+          <!-- Quiz Start Screen (shown before quiz begins) -->
+          <div class="quiz-start-screen" id="quizStartScreen">
+            <div class="quiz-start-card">
+              <div class="section-tag">Interactive Challenge</div>
+              <h1 class="quiz-start-title">Ready to test your knowledge?</h1>
+              <p class="quiz-start-desc">
+                Choose a category below and start a 5-question timed quiz when you're ready. Questions feature instant answer verification and performance tracking.
+              </p>
+
+              <!-- Category Picker Grid -->
+              <div class="quiz-category-picker-title">Choose a category:</div>
+              <div class="quiz-category-picker-grid" id="quizCategoryPickerGrid">
+                <button type="button" class="quiz-cat-pick-btn active" data-category-choice="html">
+                  <div class="quiz-cat-pick-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="16 18 22 12 16 6"></polyline>
+                      <polyline points="8 6 2 12 8 18"></polyline>
+                    </svg>
+                  </div>
+                  <div class="quiz-cat-pick-info">
+                    <div class="quiz-cat-pick-name">HTML</div>
+                    <div class="quiz-cat-pick-sub">Structure & Semantics</div>
+                  </div>
+                  <div class="quiz-cat-pick-count">5 Questions</div>
+                </button>
+
+                <button type="button" class="quiz-cat-pick-btn" data-category-choice="css">
+                  <div class="quiz-cat-pick-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
+                  </div>
+                  <div class="quiz-cat-pick-info">
+                    <div class="quiz-cat-pick-name">CSS</div>
+                    <div class="quiz-cat-pick-sub">Styling & Responsive</div>
+                  </div>
+                  <div class="quiz-cat-pick-count">5 Questions</div>
+                </button>
+
+                <button type="button" class="quiz-cat-pick-btn" data-category-choice="javascript">
+                  <div class="quiz-cat-pick-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                    </svg>
+                  </div>
+                  <div class="quiz-cat-pick-info">
+                    <div class="quiz-cat-pick-name">JavaScript</div>
+                    <div class="quiz-cat-pick-sub">Logic & Web APIs</div>
+                  </div>
+                  <div class="quiz-cat-pick-count">5 Questions</div>
+                </button>
+
+                <button type="button" class="quiz-cat-pick-btn" data-category-choice="webdev">
+                  <div class="quiz-cat-pick-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="2" y1="12" x2="22" y2="12"></line>
+                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
+                  </div>
+                  <div class="quiz-cat-pick-info">
+                    <div class="quiz-cat-pick-name">Web Development</div>
+                    <div class="quiz-cat-pick-sub">Protocols & Concepts</div>
+                  </div>
+                  <div class="quiz-cat-pick-count">5 Questions</div>
+                </button>
+              </div>
+
+              <!-- Quiz Quick Info Bar -->
+              <div class="quiz-start-meta-bar">
+                <div class="quiz-meta-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
+                  </svg>
+                  <span>5 Questions</span>
+                </div>
+                <div class="quiz-meta-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                  <span>30s Total Timer</span>
+                </div>
+                <div class="quiz-meta-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="20" x2="18" y2="10"></line>
+                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                  </svg>
+                  <span>Live Score & Review</span>
+                </div>
+              </div>
+
+              <!-- Start Button Area -->
+              <div class="quiz-start-actions">
+                <button class="btn btn-primary btn-lg" id="quizStartScreenLaunchBtn" type="button">
+                  <span>Start Quiz</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                  </svg>
+                </button>
+                <button class="btn btn-secondary btn-lg" id="quizResumeScreenBtn" type="button" style="display: none;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="1 4 1 10 7 10"></polyline>
+                    <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                  </svg>
+                  <span id="quizResumeBtnText">Resume Ongoing Quiz</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Active Quiz Screen (hidden until user explicitly confirms "OK, Start Quiz") -->
+          <div class="quiz-wrapper" id="quizActiveScreen" style="display: none;">
+            <!-- Header bar with Category & Timer -->
+            <div class="quiz-header-card">
+              <div class="quiz-header-top">
+                <div class="quiz-category-badge" id="quizCategoryBadge">HTML</div>
+                <div class="quiz-timer-box" id="quizTimerBox">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                  <span id="quizTimerDisplay">00:30</span>
+                </div>
+              </div>
+              <div class="quiz-progress-meta">
+                <span id="quizProgressText">Question 1 of 5</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-fill" id="quizProgressFill" style="width: 20%;"></div>
+              </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="quiz-question-card">
+              <div class="quiz-question-number" id="quizQuestionNumber">Question 1</div>
+              <h2 class="quiz-question-text" id="quizQuestionText">Loading quiz question...</h2>
+              <div class="options-list" id="optionsContainer">
+                <!-- Dynamically generated options -->
+              </div>
+            </div>
+
+            <!-- Quiz Controls Footer -->
+            <div class="quiz-controls-footer">
+              <button class="btn btn-outline btn-sm" id="quizQuitBtn" type="button">
+                <span>Quit Quiz</span>
+              </button>
+              <div class="quiz-controls-group">
+                <button class="btn btn-secondary" id="quizPrevBtn" type="button">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                  </svg>
+                  <span>Previous</span>
+                </button>
+                <button class="btn btn-primary" id="quizNextBtn" type="button">
+                  <span>Next Question</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             SECTION: QUIZ RESULTS
+             ============================================================ -->
+        <section class="app-section" id="results">
+          <div class="results-wrapper">
+            <!-- Results Summary Card -->
+            <div class="results-summary-card">
+              <div class="results-badge-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
+              <h2 class="results-heading">Quiz Complete</h2>
+              <p class="results-subheading">Review your score and answer breakdowns below.</p>
+
+              <div class="results-metrics-grid">
+                <div class="result-metric-card">
+                  <div class="result-metric-label">Score</div>
+                  <div class="result-metric-value highlight-green" id="resultsScore">0 / 5</div>
+                </div>
+                <div class="result-metric-card">
+                  <div class="result-metric-label">Accuracy</div>
+                  <div class="result-metric-value" id="resultsAccuracy">0%</div>
+                </div>
+                <div class="result-metric-card">
+                  <div class="result-metric-label">Correct</div>
+                  <div class="result-metric-value highlight-green" id="resultsCorrect">0</div>
+                </div>
+                <div class="result-metric-card">
+                  <div class="result-metric-label">Time Taken</div>
+                  <div class="result-metric-value" id="resultsTimeTaken">0s</div>
+                </div>
+              </div>
+
+              <div class="results-actions">
+                <button class="btn btn-primary" id="resultsRetryBtn" type="button">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="23 4 23 10 17 10"></polyline>
+                    <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                  </svg>
+                  <span>Retry Quiz</span>
+                </button>
+                <button class="btn btn-secondary" id="resultsCategoriesBtn" type="button">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
+                  </svg>
+                  <span>Choose Another Category</span>
+                </button>
+                <button class="btn btn-outline" id="resultsDashboardBtn" type="button">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                  </svg>
+                  <span>Back to Dashboard</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Detailed Answer Review -->
+            <div class="review-section-header">
+              <h3 class="review-section-title">Answer Review</h3>
+            </div>
+            <div class="review-list" id="reviewList">
+              <!-- Dynamically populated review items -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             SECTION: CATEGORIES
+             ============================================================ -->
+        <section class="app-section" id="categories">
+          <div class="section-header">
+            <span class="section-tag">Topic Directory</span>
+            <h1 class="section-title">Quiz Categories</h1>
+            <p class="section-desc">Select a category below to test your technical skills in standard web development domains.</p>
+          </div>
+
+          <div class="categories-grid">
+            <div class="category-card">
+              <div class="category-badge-meta">
+                <div class="category-icon-box">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="16 18 22 12 16 6"></polyline>
+                    <polyline points="8 6 2 12 8 18"></polyline>
+                  </svg>
+                </div>
+                <span class="category-badge-count">5 Questions</span>
+              </div>
+              <div>
+                <h3 class="category-card-title">HTML</h3>
+                <p class="category-card-desc">Structure and semantics</p>
+              </div>
+              <button class="btn btn-primary" data-start-category="html" type="button">
+                <span>Start Quiz</span>
+              </button>
+            </div>
+
+            <div class="category-card">
+              <div class="category-badge-meta">
+                <div class="category-icon-box">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                  </svg>
+                </div>
+                <span class="category-badge-count">5 Questions</span>
+              </div>
+              <div>
+                <h3 class="category-card-title">CSS</h3>
+                <p class="category-card-desc">Styling and responsive design</p>
+              </div>
+              <button class="btn btn-primary" data-start-category="css" type="button">
+                <span>Start Quiz</span>
+              </button>
+            </div>
+
+            <div class="category-card">
+              <div class="category-badge-meta">
+                <div class="category-icon-box">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                  </svg>
+                </div>
+                <span class="category-badge-count">5 Questions</span>
+              </div>
+              <div>
+                <h3 class="category-card-title">JavaScript</h3>
+                <p class="category-card-desc">Logic and interaction</p>
+              </div>
+              <button class="btn btn-primary" data-start-category="javascript" type="button">
+                <span>Start Quiz</span>
+              </button>
+            </div>
+
+            <div class="category-card">
+              <div class="category-badge-meta">
+                <div class="category-icon-box">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                  </svg>
+                </div>
+                <span class="category-badge-count">5 Questions</span>
+              </div>
+              <div>
+                <h3 class="category-card-title">Web Development</h3>
+                <p class="category-card-desc">Essential web concepts</p>
+              </div>
+              <button class="btn btn-primary" data-start-category="webdev" type="button">
+                <span>Start Quiz</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             SECTION: LIVE JOKE (PUBLIC REST API)
+             ============================================================ -->
+        <section class="app-section" id="joke">
+          <div class="joke-card">
+            <div class="joke-icon-header">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                <line x1="15" y1="9" x2="15.01" y2="9"></line>
+              </svg>
+            </div>
+            <div class="section-tag">REST API Integration</div>
+            <h1 class="section-title">Live Joke</h1>
+            <p class="section-desc" style="margin: 8px auto 0;">Enjoy real-time humor powered by live API data.</p>
+
+            <div class="joke-box">
+              <!-- Loading spinner -->
+              <div class="joke-loading-box" id="jokeLoadingBox">
+                <div class="spinner"></div>
+                <span>Fetching fresh joke...</span>
+              </div>
+
+              <!-- Error State -->
+              <div class="joke-error-box" id="jokeErrorBox">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                <div class="joke-error-text">Unable to load a joke right now. Please try again.</div>
+                <button class="btn btn-secondary btn-sm" id="tryJokeAgainBtn" type="button">Try Again</button>
+              </div>
+
+              <!-- Content State -->
+              <div class="joke-content-box" id="jokeContentBox">
+                <div class="joke-part joke-part-question">
+                  <span class="joke-part-label">Question</span>
+                  <div class="joke-setup" id="jokeSetup">Loading joke...</div>
+                </div>
+                <div class="joke-divider"></div>
+                <div class="joke-part joke-part-answer" id="jokeAnswerContainer">
+                  <span class="joke-part-label joke-answer-label">Answer</span>
+                  <div class="joke-punchline" id="jokePunchline"></div>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn-primary btn-lg" id="getJokeBtn" type="button" aria-label="Get another joke">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+              </svg>
+              <span id="getJokeBtnText">Get Another Joke</span>
+            </button>
+
+            <div class="joke-saved-badge" id="jokeSavedNotice" style="display: none;">
+              Restored from saved state
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             SECTION: PROGRESS & ANALYTICS
+             ============================================================ -->
+        <section class="app-section" id="progress">
+          <div class="section-header">
+            <span class="section-tag">Performance Analytics</span>
+            <h1 class="section-title">Knowledge Progress</h1>
+            <p class="section-desc">Track real metrics calculated from your completed quiz rounds.</p>
+          </div>
+
+          <!-- Empty State when no quizzes completed -->
+          <div class="empty-state-card" id="progressEmptyState">
+            <div class="empty-state-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="20" x2="18" y2="10"></line>
+                <line x1="12" y1="20" x2="12" y2="4"></line>
+                <line x1="6" y1="20" x2="6" y2="14"></line>
+              </svg>
+            </div>
+            <div class="empty-state-text">Complete a quiz to start building your progress.</div>
+            <div class="empty-state-subtext">All questions answered, verified scores, and category mastery levels will be visualized here.</div>
+            <button class="btn btn-primary" id="startFirstQuizBtn" type="button">Start First Quiz</button>
+          </div>
+
+          <!-- Real Progress Content Container -->
+          <div id="progressContent" style="display: none;">
+            <!-- 6-Stat Overview Grid -->
+            <div class="progress-overview-grid">
+              <div class="stat-card">
+                <div class="stat-header">
+                  <span class="stat-title">Total Answered</span>
+                </div>
+                <div class="stat-value" id="progTotalAnswered">0</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-header">
+                  <span class="stat-title">Correct Answers</span>
+                </div>
+                <div class="stat-value" id="progCorrect" style="color: var(--accent-green);">0</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-header">
+                  <span class="stat-title">Incorrect Answers</span>
+                </div>
+                <div class="stat-value" id="progIncorrect" style="color: var(--danger-color);">0</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-header">
+                  <span class="stat-title">Accuracy Rate</span>
+                </div>
+                <div class="stat-value" id="progAccuracy">0%</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-header">
+                  <span class="stat-title">Quizzes Completed</span>
+                </div>
+                <div class="stat-value" id="progQuizzes">0</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-header">
+                  <span class="stat-title">Best Score</span>
+                </div>
+                <div class="stat-value" id="progBestScore">0%</div>
+              </div>
+            </div>
+
+            <!-- Category Breakdown Card -->
+            <div class="category-breakdown-card">
+              <h3 class="category-breakdown-title">Category Mastery Breakdown</h3>
+              <div class="category-progress-list" id="catProgressContainer">
+                <!-- Dynamically populated category progress bars -->
+              </div>
+            </div>
+
+            <!-- Recent Quiz History Card -->
+            <div class="history-card">
+              <h3 class="history-title">Recent Quiz History</h3>
+              <div class="history-list" id="historyContainer">
+                <!-- Dynamically populated history rows -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             SECTION: ABOUT
+             ============================================================ -->
+        <section class="app-section" id="about">
+          <div class="about-card">
+            <div class="about-header">
+              <div class="section-tag">Platform Overview</div>
+              <h1 class="about-title">About PulseQuiz</h1>
+              <p class="about-desc">
+                PulseQuiz is an interactive learning platform that combines quick knowledge challenges, progress tracking and live API-powered content in one responsive web experience.
+              </p>
+            </div>
+
+            <div class="feature-grid">
+              <div class="feature-card">
+                <div class="feature-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                  </svg>
+                </div>
+                <h3 class="feature-title">Interactive Quizzes</h3>
+                <p class="feature-desc">
+                  Curated question pools across HTML, CSS, JavaScript, and Web Development with real-time feedback and dynamic countdown timers.
+                </p>
+              </div>
+
+              <div class="feature-card">
+                <div class="feature-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="20" x2="18" y2="10"></line>
+                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                  </svg>
+                </div>
+                <h3 class="feature-title">Progress Tracking</h3>
+                <p class="feature-desc">
+                  Comprehensive performance analytics computed from genuine user interactions and persisted locally across browser sessions.
+                </p>
+              </div>
+
+              <div class="feature-card">
+                <div class="feature-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                  </svg>
+                </div>
+                <h3 class="feature-title">Live API Content</h3>
+                <p class="feature-desc">
+                  Seamless REST API integration using modern asynchronous Fetch and error recovery to deliver refreshed programming jokes.
+                </p>
+              </div>
+
+              <div class="feature-card">
+                <div class="feature-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                  </svg>
+                </div>
+                <h3 class="feature-title">Responsive Experience</h3>
+                <p class="feature-desc">
+                  Fluid layouts optimized for mobile handhelds, tablets, laptops, and ultra-wide desktop monitors without horizontal overflow.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Quiz Start Confirmation Modal -->
+  <div class="modal-backdrop" id="quizConfirmModal" aria-hidden="true">
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalQuizTitle">
+      <div class="modal-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="5 3 19 12 5 21 5 3"></polygon>
+        </svg>
+      </div>
+      <h3 class="modal-title" id="modalQuizTitle">Let's Start Quiz?</h3>
+      <p class="modal-desc" id="modalQuizDesc">
+        You're about to begin a 5-question quiz in <strong id="modalQuizCategory">HTML</strong>. Make sure you're ready before starting.
+      </p>
+      <div class="modal-info-pills">
+        <div class="modal-info-pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span>30 Seconds Timer</span>
+        </div>
+        <div class="modal-info-pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          <span>5 Questions</span>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-outline" id="modalQuizCancelBtn" type="button">
+          <span>Cancel</span>
+        </button>
+        <button class="btn btn-primary" id="modalQuizConfirmBtn" type="button">
+          <span>OK, Start Quiz</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Logic -->
+  <script src="./script.js"></script>
+</body>
+</html>

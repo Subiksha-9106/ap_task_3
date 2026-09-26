@@ -1,0 +1,6 @@
+{
+  "name": "PulseQuiz",
+  "description": "Interactive web development quiz arena with real progress tracking, category challenges, and live API-powered jokes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
