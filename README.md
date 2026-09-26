@@ -1,20 +1,83 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# PulseQuiz
 
-# Run and deploy your AI Studio app
+PulseQuiz is an interactive quiz web application developed as part of my Web Development Internship at ApexPlanet Software Pvt. Ltd.
 
-This contains everything you need to run your app locally.
+The application provides topic-based quizzes, instant answer validation, score tracking, progress monitoring, and additional interactive features to make the learning experience more engaging.
 
-View your app in AI Studio: https://ai.studio/apps/fb816216-78e0-4afe-a87e-9eee9f040aeb
+## Features
 
-## Run Locally
+- Interactive quiz system
+- Multiple quiz categories
+- Dynamic quiz questions and options
+- Answer validation
+- Answer review after completing a quiz
+- Score and accuracy tracking
+- Progress dashboard
+- Quiz completion tracking
+- Live Joke API integration
+- Dark Mode
+- Responsive user interface
+- Navigation between different sections
+- Retry quiz functionality
+- Option to choose another category
 
-**Prerequisites:**  Node.js
+## Technologies Used
 
+- HTML5
+- CSS3
+- JavaScript
+- REST API
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Main Sections
+
+### Home
+Provides an overview of the application along with quiz statistics and quick access to start a quiz.
+
+### Quiz
+Allows users to select a category and answer interactive questions.
+
+### Categories
+Displays the available quiz categories for users to choose from.
+
+### Live Joke
+Fetches a random joke using an API and displays it dynamically.
+
+### Progress
+Tracks quiz activity, correct answers, scores, and overall progress.
+
+### About
+Provides information about the PulseQuiz application.
+
+## Quiz Flow
+
+1. Select a quiz category.
+2. Start the quiz.
+3. Answer the questions.
+4. Submit the quiz.
+5. View the score and accuracy.
+6. Review the answers.
+7. Retry the quiz or choose another category.
+
+## API Integration
+
+PulseQuiz includes a Live Joke feature that retrieves joke content from a public API and displays the response dynamically on the webpage.
+
+## Responsive Design
+
+The application is designed to work across different screen sizes, including:
+
+- Desktop
+- Tablet
+- Mobile
+
+## Project Structure
+
+```text
+PulseQuiz/
+│
+├── index.html
+├── style.css
+├── script.js
+├── assets/
+│
+└── README.md
